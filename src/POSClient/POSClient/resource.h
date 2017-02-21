@@ -76,6 +76,7 @@
 #define IDD_DIALOG2                     150
 #define IDD_INFOMATION                  150
 #define IDS_INSUFFICENT                 150
+#define IDS_DEMOBTN                     150
 #define IDD_DIALOG3                     151
 #define IDD_STRINGINPUT                 151
 #define IDS_NOCARD                      151
@@ -142,7 +143,6 @@
 #define IDS_ALREADYRUN                  195
 #define IDD_SOLDITEM                    196
 #define IDS_INICFG                      196
-#define IDD_CUSTNEW                     197
 #define IDS_CONECTDB                    197
 #define IDD_REMIND                      198
 #define IDS_CHECKREG                    198
@@ -283,6 +283,7 @@
 #define IDS_SAVEEODDATA                 307
 #define IDS_SENDMESSAGE                 308
 #define IDS_SEPARATECFM                 308
+#define IDS_DELCONFIRM                  308
 #define IDS_SENDDEPOS                   309
 #define IDS_DODAYEND                    310
 #define IDS_DOBACKUP                    311

@@ -28,8 +28,8 @@ LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
 
 #if defined(APSTUDIO_INVOKED) || !defined(GICATER_VERSION)
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 17,2,1,20
- PRODUCTVERSION 17,2,1,0
+ FILEVERSION 17,3,1,21
+ PRODUCTVERSION 17,3,1,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -46,12 +46,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "COOLROID Technologies Co., Ltd"
             VALUE "FileDescription", "POS Operations"
-            VALUE "FileVersion", "17, 2, 1, 20"
+            VALUE "FileVersion", "17, 3, 1, 21"
             VALUE "InternalName", "POSClient.exe"
             VALUE "LegalCopyright", "COOLROID All Rights Reserved"
             VALUE "OriginalFilename", "POSClient.exe"
             VALUE "ProductName", "Catering Management System"
-            VALUE "ProductVersion", "17, 2, 1, 0"
+            VALUE "ProductVersion", "17, 3, 1, 0"
         END
     END
     BLOCK "VarFileInfo"
@@ -67,8 +67,8 @@ VS_VERSION_INFO$(GICATER_VERSION) VERSIONINFO
 #else
 VS_VERSION_INFO VERSIONINFO
 #endif
- FILEVERSION 17,2,1,20
- PRODUCTVERSION 17,2,1,0
+ FILEVERSION 17,3,1,21
+ PRODUCTVERSION 17,3,1,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -84,12 +84,12 @@ BEGIN
         BLOCK "080403a8"
         BEGIN
             VALUE "FileDescription", "聚客(Gicater)点餐收银前台"
-            VALUE "FileVersion", "17, 2, 1, 20"
+            VALUE "FileVersion", "17, 3, 1, 21"
             VALUE "InternalName", "POSClient.exe"
             VALUE "LegalCopyright", "COOLROID 保留所有权利。"
             VALUE "OriginalFilename", "POSClient.exe"
             VALUE "ProductName", "聚客(Gicater)点餐收银系统"
-            VALUE "ProductVersion", "17, 2, 1, 0"
+            VALUE "ProductVersion", "17, 3, 1, 0"
         END
     END
     BLOCK "VarFileInfo"
@@ -465,21 +465,6 @@ BEGIN
     LTEXT           "日结后恢复数量",IDC_STATIC_CHECK,40,49,49,8
 END
 
-IDD_CUSTNEW DIALOGEX 0, 0, 141, 85
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "新建会员"
-FONT 14, "微软雅黑", 400, 0, 0x86
-BEGIN
-    DEFPUSHBUTTON   "确定",IDOK,17,63,50,19
-    PUSHBUTTON      "取消",IDCANCEL,77,63,50,19
-    LTEXT           "卡号",IDC_STATIC1,4,8,39,8
-    LTEXT           "姓名",IDC_STATIC2,5,28,38,8
-    CONTROL         "是否可挂账",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,45,81,10
-    EDITTEXT        IDC_EDIT1,45,7,91,12,ES_AUTOHSCROLL
-    EDITTEXT        IDC_EDIT2,45,26,90,12,ES_AUTOHSCROLL
-    PUSHBUTTON      "",IDC_BUTTON_SOFTKEY,101,43,25,15
-END
-
 IDD_REMIND DIALOGEX 0, 0, 88, 91
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "催菜选择"
@@ -705,28 +690,29 @@ FONT 14, "微软雅黑", 400, 0, 0x86
 BEGIN
     DEFPUSHBUTTON   "确定",IDC_BUTTON_OK,49,156,55,20
     PUSHBUTTON      "取消",IDCANCEL2,140,156,55,20
-    EDITTEXT        IDC_EDIT1,12,13,125,12,ES_AUTOHSCROLL | NOT WS_BORDER
+    EDITTEXT        IDC_EDIT1,12,13,94,12,ES_AUTOHSCROLL | NOT WS_BORDER
     CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,12,32,233,93
-    PUSHBUTTON      "新增",IDC_BUTTON_ADD,139,7,36,21,NOT WS_VISIBLE
-    PUSHBUTTON      "编辑",IDC_BUTTON_EDIT,177,7,36,21,NOT WS_VISIBLE
+    PUSHBUTTON      "新增",IDC_BUTTON_ADD,110,7,36,21,NOT WS_VISIBLE
+    PUSHBUTTON      "编辑",IDC_BUTTON_EDIT,146,7,36,21,NOT WS_VISIBLE
     EDITTEXT        IDC_EDIT2,12,128,207,23,ES_MULTILINE | ES_AUTOHSCROLL | ES_WANTRETURN | WS_VSCROLL
     PUSHBUTTON      "定位",IDC_BUTTON_LOCATION,221,131,31,17
-    PUSHBUTTON      "",IDC_BUTTON_SOFTKEY,215,7,36,21,BS_ICON
+    PUSHBUTTON      "",IDC_BUTTON_SOFTKEY,218,7,36,21,BS_ICON
+    PUSHBUTTON      "删除",IDC_BUTTON_DEL,182,7,36,21
 END
 
-IDD_CUSTNEW2 DIALOGEX 0, 0, 141, 85
+IDD_CUSTNEW2 DIALOGEX 0, 0, 162, 96
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "添加常客"
 FONT 14, "微软雅黑", 400, 0, 0x86
 BEGIN
-    DEFPUSHBUTTON   "确定",IDOK,17,63,50,19
-    PUSHBUTTON      "取消",IDCANCEL,77,63,50,19
-    LTEXT           "电话",IDC_STATIC2,4,28,39,8
-    LTEXT           "姓名",IDC_STATIC1,4,9,38,8
-    EDITTEXT        IDC_EDIT1,45,7,91,12,ES_AUTOHSCROLL
-    EDITTEXT        IDC_EDIT2,45,26,90,12,ES_AUTOHSCROLL
-    LTEXT           "地址",IDC_STATIC3,4,46,39,8
-    EDITTEXT        IDC_EDIT3,45,44,90,12,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "确定",IDOK,10,69,53,22
+    PUSHBUTTON      "取消",IDCANCEL,98,69,53,22
+    LTEXT           "电话",IDC_STATIC2,6,29,39,8
+    LTEXT           "姓名",IDC_STATIC1,6,8,38,8
+    EDITTEXT        IDC_EDIT1,47,4,110,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT2,47,25,110,12,ES_AUTOHSCROLL
+    LTEXT           "地址",IDC_STATIC3,6,50,39,8
+    EDITTEXT        IDC_EDIT3,47,46,110,12,ES_AUTOHSCROLL
 END
 
 IDD_LANGUAGE DIALOGEX 0, 0, 71, 39
@@ -889,7 +875,7 @@ BEGIN
     CTEXT           "收银电脑名",IDC_STATIC3,0,43,60,8
 END
 
-IDD_WEBLOGIN DIALOGEX 0, 0, 133, 71
+IDD_WEBLOGIN DIALOGEX 0, 0, 138, 71
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_TOPMOST
 CAPTION "登录-初始化数据"
@@ -897,10 +883,11 @@ FONT 14, "微软雅黑", 400, 0, 0x86
 BEGIN
     EDITTEXT        IDC_EDIT1,59,6,72,12,ES_AUTOHSCROLL | ES_NUMBER
     EDITTEXT        IDC_EDIT2,59,24,72,12,ES_PASSWORD | ES_AUTOHSCROLL | ES_NUMBER
-    DEFPUSHBUTTON   "登录",IDOK,13,45,41,19
-    PUSHBUTTON      "取消",IDCANCEL,79,45,41,19
+    DEFPUSHBUTTON   "登录",IDOK,1,45,41,19
+    PUSHBUTTON      "取消",IDCANCEL,95,45,41,19
     CTEXT           "手机号",IDC_STATIC1,0,8,57,8
     CTEXT           "密码",IDC_STATIC2,0,26,55,8
+    PUSHBUTTON      "演示模式",IDCANCEL2,48,45,41,19
 END
 
 
@@ -1105,14 +1092,6 @@ BEGIN
         BOTTOMMARGIN, 78
     END
 
-    IDD_CUSTNEW, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 134
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 78
-    END
-
     IDD_REMIND, DIALOG
     BEGIN
         LEFTMARGIN, 1
@@ -1234,10 +1213,10 @@ BEGIN
 
     IDD_CUSTNEW2, DIALOG
     BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 134
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 78
+        LEFTMARGIN, 4
+        RIGHTMARGIN, 157
+        TOPMARGIN, 4
+        BOTTOMMARGIN, 91
     END
 
     IDD_LANGUAGE, DIALOG
@@ -1310,7 +1289,7 @@ BEGIN
 
     IDD_WEBLOGIN, DIALOG
     BEGIN
-        RIGHTMARGIN, 132
+        RIGHTMARGIN, 137
         BOTTOMMARGIN, 68
     END
 END
@@ -1393,6 +1372,7 @@ BEGIN
     IDS_CANNOTEMPTY         "不能为空!"
     IDS_REFUNDHINT          "该支付方式不支持退款！"
     IDS_INPUTCARDNUM        "输入卡号"
+    IDS_DEMOBTN             "演示模式"
     IDS_NOCARD              "没有该卡！"
     IDS_CARDBALANCE         "卡内余额"
     IDS_INPUTAMOUNT         "输入金额"
@@ -1590,6 +1570,7 @@ BEGIN
     IDS_PARTYCHOOSE         "选择宴会桌，共【%d】桌"
     IDS_LINKTABLE           "选择【%s】桌的关联桌"
     IDS_SAVEEODDATA         "存储日结历史数据..."
+    IDS_DELCONFIRM          "确定要删除?"
     IDS_SENDDEPOS           "发送库存数据..."
     IDS_DODAYEND            "正在进行日结，请稍候"
     IDS_DOBACKUP            "正在进行备份，请稍候"
@@ -1783,7 +1764,7 @@ BEGIN
     IDS_NOTALLOWTBL         "不能操作其他用户开的桌"
     IDS_PRINT_SERIAL        "打印流水"
     IDS_SKIP                "跳过"
-    IDS_NEED_ACTIVE         "您的系统需要激活，请连接网络并重启云服务"
+    IDS_NEED_ACTIVE         "您的系统需要联网更新数据，请连接网络并重启程序"
     IDS_REGMAX              "软件未注册或已达到最大注册数!"
     IDS_DOWNLOAD            "正在下载更新..."
     IDS_SYNCOK2             "同步成功,请重启程序生效!"

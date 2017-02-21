@@ -726,6 +726,7 @@ int CLoginDlg::DoDownload(ProgressDlg* progress)
 				versions[fieldinfo.m_strName]=variant.m_lVal;
 			}
 		}
+		rs.Close();
 		root["versions"] = versions;
 		CString strURL,strValue;
 		CInternetSession session;
@@ -805,12 +806,13 @@ int CLoginDlg::DoDownload(ProgressDlg* progress)
 			}
 			NetFile.Close();
 			CString strRestart=_T("restaurant macros tax_primary user_workstations");
-			BOOL bNeedRestart=TRUE;
+			BOOL bNeedRestart=FALSE;
 			CZipArchive zip;
 			zip.Open(_T("_tmp_download"));
 			int zip_count=zip.GetNoEntries();
 			for(int i=0;i<zip_count;i++)
 			{
+				try{
 				zip.ExtractFile(i,strDir);
 				CZipFileHeader fhInfo;
 				zip.GetFileInfo(fhInfo,i);
@@ -818,27 +820,49 @@ int CLoginDlg::DoDownload(ProgressDlg* progress)
 				CString fullPath=strDir+_T("/")+fileName;
 				if(fileName.Right(4)==_T(".jpg"))
 				{//打印模版图片
-					MoveFile(fullPath,fileName);
+					MoveFileEx(fullPath,fileName,MOVEFILE_REPLACE_EXISTING);
 					continue;
 				}
 				else if(fileName.Right(4)==_T(".db3"))
 				{//平板数据文件
-					CString newPath=_T("../pad_server/file")+fileName;
-					MoveFile(fullPath,newPath);
+					CString newPath=_T("../pad_server/file/")+fileName;
+					MoveFileEx(fullPath,newPath,MOVEFILE_REPLACE_EXISTING);
 					continue;
 				}
 				
 				CStdioFile file;
 				file.Open(fullPath,CFile::modeRead);
-				CString line;
+				CString line,columns,db_col;
 				file.ReadString(line);
 				file.Close();
-				line.Replace(_T(","),_T("`,`"));
-				line.Insert(0,'`');
-				line.AppendChar('`');
+				strSQL.Format(_T("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='%s' AND TABLE_SCHEMA='coolroid'"),fileName);
+				rs.Open(CRecordset::forwardOnly,strSQL);
+				while (!rs.IsEOF())
+				{
+					rs.GetFieldValue((short)0,strDbVer);
+					db_col.AppendFormat(_T("%s "),strDbVer);
+					rs.MoveNext();
+				}
+				rs.Close();
+				int nTokenPos = 0;
+				CString strToken = line.Tokenize(_T(","), nTokenPos);
+				while (!strToken.IsEmpty())
+				{
+					if(db_col.Find(strToken)>=0)
+					{
+						columns.AppendFormat(_T("`%s`,"),strToken);
+					}
+					else
+					{
+						columns.AppendFormat(_T("@%s,"),strToken);
+					}
+					strToken = line.Tokenize(_T(","), nTokenPos);
+				}
+				columns.Delete(columns.GetLength()-1);
+
 				strSQL.Format(_T("TRUNCATE TABLE %s"),fileName);
 				db.ExecuteSQL(strSQL);
-				strSQL.Format(_T("LOAD DATA LOCAL INFILE '%s' REPLACE INTO TABLE %s FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\\n' IGNORE 1 LINES (%s)"),fullPath,fileName,line);
+				strSQL.Format(_T("LOAD DATA LOCAL INFILE '%s' REPLACE INTO TABLE %s FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\\n' IGNORE 1 LINES (%s)"),fullPath,fileName,columns);
 				db.ExecuteSQL(strSQL);
 				if(!bNeedRestart&&progress)
 				{
@@ -854,6 +878,10 @@ int CLoginDlg::DoDownload(ProgressDlg* progress)
 					{
 						::PostMessage(hWnd, WM_USER+100, 0,0);
 					}
+				}
+				}catch(...)
+				{
+
 				}
 			}
 			zip.Close();
@@ -883,7 +911,7 @@ int CLoginDlg::DoDownload(ProgressDlg* progress)
 }
 void CLoginDlg::OnBnClickedSync()
 {
-	if(!theApp.IS_SERVER)
+	if(!theApp.IS_SERVER||m_bTrainingMode)
 		return;
 	m_pSyncBtn->SetIcon((HICON)NULL,CRoundButton2::RIGHTUP);
 	KillTimer(1002);
